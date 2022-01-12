@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aprendendo Js</title>
+    <style>
+      .container {
+        position: relative;
+        width: 640px;
+        height: 360px;
+        box-sizing: border-box;
+      }
+      #video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      #containerBtns {
+        opacity: 0;
+        visibility: visible;
+        position: absolute;
+        top: 100%;
+        transform: translateY(-100%);
+        width: 100%;
+        height: fit-content;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.075);
+      }
+      .btns {
+        width: 40px;
+        border-radius: 50%;
+        padding: 10px;
+        bottom: 0px;
+      }
+      #tempoFinal{
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        color: white;
+      }
+      #tempoAtual{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <video id="video" src="./videos/VINHETA MINICURSO YOUTUBE.mp4"></video>
+
+      <div id="containerBtns">
+        <Span id="tempoAtual" >00:00</Span>
+        <Span id="tempoFinal" >00:00</Span>
+        <img class="btns" src="./imagens/voltar15.png" />
+        <img class="btns" src="./imagens/avancar15.png" />
+        <img class="btns" src="./imagens/aumentarVel.png" />
+        <img class="btns" src="./imagens/reduzirVel.png" />
+        <img class="btns" src="./imagens/incrementar.png" />
+        <img class="btns" src="./imagens/decrementar.png" />
+        <img class="btns" src="./imagens/play.png" />
+        <img class="btns" src="./imagens/stop.png" />
+      </div>
+    </div>
+
+    <script>
+      let video = document.getElementById("video");
+      let btns = document.getElementsByClassName("btns");
+      let controles = document.getElementById("containerBtns");
+      let body = document.body;
+      let playPause = 0;
+      let tempoAtual = document.getElementById("tempoAtual")
+      let tempoFinal = document.getElementById("tempoFinal")
+      setInterval(tempFinal,1000)
+      function tempFinal(){
+        tempoAtual.innerHTML = Math.ceil(video.currentTime)
+        tempoFinal.innerHTML = Math.ceil(video.duration)
+      }
+      //funções
+      function voltar() {
+        video.currentTime -= 15; //tempo em segundos
+      }
+      function avancar() {
+        video.currentTime += 15; //tempo em segundos
+      }
+      function aumentarVel() {
+        video.playbackRate += 0.1; //0 a 1
+      }
+      function reduzirVel() {
+        video.playbackRate -= 0.1; //0 a 1
+      }
+      function incrementarVol() {
+        video.volume += 0.1; //0 a 1
+      }
+      function decrementarVol() {
+        video.volume -= 0.1; //0 a 1
+      }
+      function play() {
+        if (playPause == 0) {
+          playPause = 1;
+          video.play();
+        } else {
+          playPause = 0;
+          video.pause();
+        }
+      }
+
+      function stop() {
+        video.pause(); //pausa o vídeo
+        video.currentTime = 0; //retorna o vídeo pro minuto 0
+      }
+      function visualizar() {
+        setTimeout(visibleOn, 100);
+        function visibleOn() {
+          controles.style.opacity = "1";
+        }
+      }
+      function esconder() {
+        setTimeout(visibleOff, 1000);
+        function visibleOff() {
+          controles.style.opacity = "0";
+        }
+      }
+      
+
+      //ações botões
+      btns[0].addEventListener("click", voltar);
+      btns[1].addEventListener("click", avancar);
+      btns[2].addEventListener("click", aumentarVel);
+      btns[3].addEventListener("click", reduzirVel);
+      btns[4].addEventListener("click", incrementarVol);
+      btns[5].addEventListener("click", decrementarVol);
+      btns[6].addEventListener("click", play);
+      btns[7].addEventListener("click", stop);
+      controles.addEventListener("mouseover", visualizar);
+      controles.addEventListener("mouseleave", esconder);
+    </script>
+  </body>
+</html>
